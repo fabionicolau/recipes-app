@@ -8,7 +8,11 @@ const MyProvider = ({ children }) => {
     password: '',
   });
 
+  const [data, setData] = useState([]);
+
   const context = {
+    data,
+    setData,
     setUserInfo,
     userInfo,
   };

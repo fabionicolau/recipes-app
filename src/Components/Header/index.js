@@ -37,7 +37,7 @@ const Header = ({ title }) => {
           />
         </button>
       )}
-      {isSearching && <Searchbar />}
+      {isSearching && <Searchbar page={ title } />}
     </header>
   );
 };

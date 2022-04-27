@@ -18,6 +18,7 @@ const Searchbar = ({ page }) => {
   };
 
   const fetchData = async ({ radio, text }) => {
+    setData([]);
     const firstLetter = 'First Letter';
     if (radio === firstLetter && text.length > 1) {
       global.alert('Your search must have only 1 (one) character');

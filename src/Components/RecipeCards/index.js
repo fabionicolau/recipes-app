@@ -1,10 +1,14 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import propTypes from 'prop-types';
 import MyContext from '../../Context/MyContext';
 
 const RecipeCards = ({ page }) => {
-  const { data } = useContext(MyContext);
+  const { data, redirect, setRedirect } = useContext(MyContext);
+
+  useEffect(() => () => {
+    setRedirect(false);
+  }, [setRedirect]);
 
   if (data.drinks === null || data.meals === null) {
     global.alert('Sorry, we haven\'t found any recipes for these filters.');
@@ -13,13 +17,13 @@ const RecipeCards = ({ page }) => {
   const maxCards = 12;
 
   if (page === 'Foods') {
-    if (data.meals && data.meals.length === 1) {
+    if (data.meals && data.meals.length === 1 && redirect === true) {
       return <Redirect to={ `/foods/${data.meals[0].idMeal}` } />;
     }
 
     return (
       <div>
-        {data.meals && data.meals.length > 1
+        {data.meals && data.meals.length >= 1
           && data.meals.slice(0, maxCards).map((recipes, index) => (
             <Link key={ recipes.idMeal } to={ `/foods/${recipes.idMeal}` }>
               <div data-testid={ `${index}-recipe-card` }>

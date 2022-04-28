@@ -5,7 +5,7 @@ import fetchCustom from '../../services/FetchCustom';
 // import ingredient from '../../services/Ingredient';
 
 const Searchbar = ({ page }) => {
-  const { setData } = useContext(MyContext);
+  const { setData, setRedirect } = useContext(MyContext);
   const [searchInputs, setSearchInputs] = useState({
     radio: '',
     text: '',
@@ -39,6 +39,7 @@ const Searchbar = ({ page }) => {
       if (radio === firstLetter) {
         endPoint += `search.php?f=${text}`;
       }
+      setRedirect(true);
       setData(await fetchCustom(endPoint));
     }
   };

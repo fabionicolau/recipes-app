@@ -5,20 +5,27 @@ import Header from '../../Components/Header';
 import FooterMenu from '../../Components/FooterMenu';
 import RecipeCards from '../../Components/RecipeCards';
 import fetchCustom from '../../services/FetchCustom';
+import Categories from '../../Components/Categories/Index';
 
 const Drinks = ({ title }) => {
-  const { setData } = useContext(MyContext);
+  const { setData, setCategoriesData } = useContext(MyContext);
+  const drinksStr = 'Drinks';
 
   useEffect(() => {
     const endpoint = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
+    const endpointCategories = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list';
+    const FIVE = 5;
     fetchCustom(endpoint).then((data) => setData(data));
-  }, [setData]);
+    fetchCustom(endpointCategories)
+      .then(({ drinks }) => setCategoriesData(drinks.slice(0, FIVE)));
+  }, [setData, setCategoriesData]);
 
   return (
     <>
-      <Header title="Drinks" />
+      <Header title={ drinksStr } />
       <h1>{ title }</h1>
-      <RecipeCards page="Drinks" />
+      <Categories page={ drinksStr } />
+      <RecipeCards page={ drinksStr } />
       <FooterMenu />
     </>
   );

@@ -9,12 +9,15 @@ const MyProvider = ({ children }) => {
   });
 
   const [data, setData] = useState([]);
+  const [categoriesData, setCategoriesData] = useState([]);
 
   const context = {
     data,
     setData,
     setUserInfo,
     userInfo,
+    categoriesData,
+    setCategoriesData,
   };
 
   return (

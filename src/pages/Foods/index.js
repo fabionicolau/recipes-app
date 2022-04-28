@@ -4,19 +4,25 @@ import Header from '../../Components/Header';
 import FooterMenu from '../../Components/FooterMenu';
 import RecipeCards from '../../Components/RecipeCards';
 import fetchCustom from '../../services/FetchCustom';
+import Categories from '../../Components/Categories/Index';
 
 const Foods = () => {
-  const { setData } = useContext(MyContext);
+  const { setData, setCategoriesData } = useContext(MyContext);
 
   useEffect(() => {
     const endpoint = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
+    const endpointCategories = 'https://www.themealdb.com/api/json/v1/1/list.php?c=list';
+    const FIVE = 5;
     fetchCustom(endpoint).then((data) => setData(data));
-  }, [setData]);
+    fetchCustom(endpointCategories)
+      .then(({ meals }) => setCategoriesData(meals.slice(0, FIVE)));
+  }, [setData, setCategoriesData]);
 
   return (
     <>
       <Header title="Foods" />
       <h1>teste </h1>
+      <Categories />
       <RecipeCards page="Foods" />
       <FooterMenu />
     </>

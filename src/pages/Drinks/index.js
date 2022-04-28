@@ -1,17 +1,35 @@
-import React from 'react';
+import React, { useEffect, useContext } from 'react';
 import propTypes from 'prop-types';
+import MyContext from '../../Context/MyContext';
 import Header from '../../Components/Header';
 import FooterMenu from '../../Components/FooterMenu';
 import RecipeCards from '../../Components/RecipeCards';
+import fetchCustom from '../../services/FetchCustom';
+import Categories from '../../Components/Categories/Index';
 
-const Drinks = ({ title }) => (
-  <>
-    <Header title="Drinks" />
-    <h1>{ title }</h1>
-    <RecipeCards page="Drinks" />
-    <FooterMenu />
-  </>
-);
+const Drinks = ({ title }) => {
+  const { setData, setCategoriesData } = useContext(MyContext);
+  const drinksStr = 'Drinks';
+
+  useEffect(() => {
+    const endpoint = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
+    const endpointCategories = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list';
+    const FIVE = 5;
+    fetchCustom(endpoint).then((data) => setData(data));
+    fetchCustom(endpointCategories)
+      .then(({ drinks }) => setCategoriesData(drinks.slice(0, FIVE)));
+  }, [setData, setCategoriesData]);
+
+  return (
+    <>
+      <Header title={ drinksStr } />
+      <h1>{ title }</h1>
+      <Categories page={ drinksStr } />
+      <RecipeCards page={ drinksStr } />
+      <FooterMenu />
+    </>
+  );
+};
 
 Drinks.propTypes = {
   title: propTypes.string,

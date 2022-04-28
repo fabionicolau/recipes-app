@@ -5,7 +5,7 @@ import profileIcon from '../../images/profileIcon.svg';
 import searchIcon from '../../images/searchIcon.svg';
 import Searchbar from '../Searchbar';
 
-const Header = ({ title }) => {
+const Header = ({ title, endpoint }) => {
   const [isSearching, setIsSearching] = useState(false);
 
   return (
@@ -37,12 +37,13 @@ const Header = ({ title }) => {
           />
         </button>
       )}
-      {isSearching && <Searchbar page={ title } />}
+      {isSearching && <Searchbar endpoint={ endpoint } />}
     </header>
   );
 };
 
 Header.propTypes = {
   title: propTypes.string,
+  endpoint: propTypes.string,
 }.isRequired;
 export default Header;

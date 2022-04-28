@@ -9,11 +9,12 @@ import Categories from '../../Components/Categories/Index';
 
 const Drinks = ({ title }) => {
   const { setData, setCategoriesData } = useContext(MyContext);
-  const drinksStr = 'Drinks';
+  const endpointRoot = 'https://www.thecocktaildb.com/api/json/v1/1/';
 
   useEffect(() => {
-    const endpoint = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
-    const endpointCategories = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list';
+    setData([]);
+    const endpoint = `${endpointRoot}search.php?s=`;
+    const endpointCategories = `${endpointRoot}list.php?c=list`;
     const FIVE = 5;
     fetchCustom(endpoint).then((data) => setData(data));
     fetchCustom(endpointCategories)
@@ -22,10 +23,10 @@ const Drinks = ({ title }) => {
 
   return (
     <>
-      <Header title={ drinksStr } />
+      <Header title="Drinks" endpoint={ endpointRoot } />
       <h1>{ title }</h1>
-      <Categories page={ drinksStr } />
-      <RecipeCards page={ drinksStr } />
+      <Categories endpoint={ endpointRoot } />
+      <RecipeCards page="Drinks" />
       <FooterMenu />
     </>
   );

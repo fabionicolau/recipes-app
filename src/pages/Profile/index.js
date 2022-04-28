@@ -6,13 +6,13 @@ import Header from '../../Components/Header';
 
 const Profile = () => {
   const history = useHistory();
-  const { email } = JSON.parse(localStorage.getItem('user'));
+  const setEmail = JSON.parse(localStorage.getItem('user'));
   return (
     <>
       <Header title="Profile" />
       <h1 data-testid="profile-email">
         <strong>
-          { email }
+          { setEmail && setEmail.email }
         </strong>
       </h1>
       <button

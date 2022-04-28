@@ -4,11 +4,23 @@ import MyContext from '../../Context/MyContext';
 import fetchCustom from '../../services/FetchCustom';
 
 const Categories = ({ endpoint }) => {
-  const { categoriesData, setData } = useContext(MyContext);
+  const {
+    categoriesData,
+    setData,
+    activeCategory,
+    setActiveCategory,
+  } = useContext(MyContext);
 
   const handleClick = ({ target: { name } }) => {
-    setData([]);
-    fetchCustom(`${endpoint}filter.php?c=${name}`).then((data) => setData(data));
+    if (name === activeCategory || name === 'all') {
+      setActiveCategory('');
+      setData([]);
+      fetchCustom(`${endpoint}search.php?s=`).then((data) => setData(data));
+    } else {
+      setActiveCategory(name);
+      setData([]);
+      fetchCustom(`${endpoint}filter.php?c=${name}`).then((data) => setData(data));
+    }
   };
 
   return (

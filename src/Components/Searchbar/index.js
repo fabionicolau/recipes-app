@@ -2,9 +2,8 @@ import React, { useContext, useState } from 'react';
 import propTypes from 'prop-types';
 import MyContext from '../../Context/MyContext';
 import fetchCustom from '../../services/FetchCustom';
-// import ingredient from '../../services/Ingredient';
 
-const Searchbar = ({ page }) => {
+const Searchbar = ({ endpoint }) => {
   const { setData, setRedirect } = useContext(MyContext);
   const [searchInputs, setSearchInputs] = useState({
     radio: '',
@@ -23,24 +22,18 @@ const Searchbar = ({ page }) => {
     if (radio === firstLetter && text.length > 1) {
       global.alert('Your search must have only 1 (one) character');
     } else {
-      let endPoint;
-      if (page === 'Foods') {
-        endPoint = 'https://www.themealdb.com/api/json/v1/1/';
-      }
-      if (page === 'Drinks') {
-        endPoint = 'https://www.thecocktaildb.com/api/json/v1/1/';
-      }
+      let endpointRoot = endpoint;
       if (radio === 'Ingredient') {
-        endPoint += `filter.php?i=${text}`;
+        endpointRoot += `filter.php?i=${text}`;
       }
       if (radio === 'Name') {
-        endPoint += `search.php?s=${text}`;
+        endpointRoot += `search.php?s=${text}`;
       }
       if (radio === firstLetter) {
-        endPoint += `search.php?f=${text}`;
+        endpointRoot += `search.php?f=${text}`;
       }
       setRedirect(true);
-      setData(await fetchCustom(endPoint));
+      setData(await fetchCustom(endpointRoot));
     }
   };
 
@@ -89,7 +82,7 @@ const Searchbar = ({ page }) => {
 };
 
 Searchbar.propTypes = {
-  page: propTypes.string,
+  endpoint: propTypes.string,
 }.isRequired;
 
 export default Searchbar;

@@ -13,8 +13,8 @@ const Drinks = ({ title }) => {
 
   useEffect(() => {
     setData([]);
-    const endpoint = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
-    const endpointCategories = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list';
+    const endpoint = `${endpointRoot}search.php?s=`;
+    const endpointCategories = `${endpointRoot}list.php?c=list`;
     const FIVE = 5;
     fetchCustom(endpoint).then((data) => setData(data));
     fetchCustom(endpointCategories)
@@ -23,7 +23,7 @@ const Drinks = ({ title }) => {
 
   return (
     <>
-      <Header title="Drinks" />
+      <Header title="Drinks" endpoint={ endpointRoot } />
       <h1>{ title }</h1>
       <Categories endpoint={ endpointRoot } />
       <RecipeCards page="Drinks" />

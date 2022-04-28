@@ -10,58 +10,39 @@ const RecipeCards = ({ page }) => {
     setRedirect(false);
   }, [setRedirect]);
 
-  if (data.drinks === null || data.meals === null) {
+  const recipes = page === 'Foods' ? data.meals : data.drinks;
+  const recipeId = page === 'Foods' ? 'idMeal' : 'idDrink';
+  const recipeName = page === 'Foods' ? 'strMeal' : 'strDrink';
+  const recipeImage = page === 'Foods' ? 'strMealThumb' : 'strDrinkThumb';
+  const pageStr = page === 'Foods' ? 'foods' : 'drinks';
+
+  if (recipes === null) {
     global.alert('Sorry, we haven\'t found any recipes for these filters.');
   }
 
   const maxCards = 12;
 
-  if (page === 'Foods') {
-    if (data.meals && data.meals.length === 1 && redirect === true) {
-      return <Redirect to={ `/foods/${data.meals[0].idMeal}` } />;
-    }
-
-    return (
-      <div>
-        {data.meals && data.meals.length >= 1
-          && data.meals.slice(0, maxCards).map((recipes, index) => (
-            <Link key={ recipes.idMeal } to={ `/foods/${recipes.idMeal}` }>
-              <div data-testid={ `${index}-recipe-card` }>
-                <img
-                  data-testid={ `${index}-card-img` }
-                  src={ recipes.strMealThumb }
-                  alt={ recipes.strMeal }
-                />
-                <p data-testid={ `${index}-card-name` }>{recipes.strMeal}</p>
-              </div>
-            </Link>
-          ))}
-      </div>
-    );
+  if (recipes && recipes.length === 1 && redirect === true) {
+    return <Redirect to={ `/${pageStr}/${recipes[0][recipeId]}` } />;
   }
-  if (page === 'Drinks') {
-    if (data.drinks && data.drinks.length === 1) {
-      return <Redirect to={ `/drinks/${data.drinks[0].idDrink}` } />;
-    }
 
-    return (
-      <div>
-        {data.drinks && data.drinks.length > 1
-        && data.drinks.slice(0, maxCards).map((recipes, index) => (
-          <Link key={ recipes.idDrink } to={ `/drinks/${recipes.idDrink}` }>
+  return (
+    <div>
+      {recipes && recipes.length >= 1
+        && recipes.slice(0, maxCards).map((recipe, index) => (
+          <Link key={ recipe[recipeId] } to={ `/${pageStr}/${recipe[recipeId]}` }>
             <div data-testid={ `${index}-recipe-card` }>
               <img
                 data-testid={ `${index}-card-img` }
-                src={ recipes.strDrinkThumb }
-                alt={ recipes.strDrink }
+                src={ recipe[recipeImage] }
+                alt={ recipe[recipeName] }
               />
-              <p data-testid={ `${index}-card-name` }>{recipes.strDrink}</p>
+              <p data-testid={ `${index}-card-name` }>{recipe[recipeName]}</p>
             </div>
           </Link>
         ))}
-      </div>
-    );
-  }
+    </div>
+  );
 };
 
 RecipeCards.propTypes = {

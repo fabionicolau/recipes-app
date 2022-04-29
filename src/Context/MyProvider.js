@@ -12,6 +12,7 @@ const MyProvider = ({ children }) => {
   const [categoriesData, setCategoriesData] = useState([]);
   const [redirect, setRedirect] = useState(false);
   const [activeCategory, setActiveCategory] = useState('');
+  const [ingredients, setIngredients] = useState([]);
 
   const context = {
     data,
@@ -24,6 +25,8 @@ const MyProvider = ({ children }) => {
     setRedirect,
     activeCategory,
     setActiveCategory,
+    ingredients,
+    setIngredients,
   };
 
   return (

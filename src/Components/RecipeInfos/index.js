@@ -10,7 +10,7 @@ const copy = require('clipboard-copy');
 
 const RecipeInfos = ({ page, recomendation }) => {
   const { id } = useParams();
-  const { data, setData } = useContext(MyContext);
+  const { setData } = useContext(MyContext);
   const [recipeDetails, setRecipeDetails] = useState();
   const [isCopied, setIsCopied] = useState(false);
 
@@ -30,8 +30,6 @@ const RecipeInfos = ({ page, recomendation }) => {
   }, [id, recipeURL, setData, recomendationURL]);
 
   const youtubeId = recipeDetails?.[recipes][0][recipeVideo]?.split('=');
-
-  console.log(data);
 
   return (
     <div>

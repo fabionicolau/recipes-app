@@ -13,6 +13,7 @@ const MyProvider = ({ children }) => {
   const [redirect, setRedirect] = useState(false);
   const [activeCategory, setActiveCategory] = useState('');
   const [ingredients, setIngredients] = useState([]);
+  const [isExplorerIngredients, setIsExplorerIngredients] = useState(false);
 
   const context = {
     data,
@@ -27,6 +28,8 @@ const MyProvider = ({ children }) => {
     setActiveCategory,
     ingredients,
     setIngredients,
+    isExplorerIngredients,
+    setIsExplorerIngredients,
   };
 
   return (

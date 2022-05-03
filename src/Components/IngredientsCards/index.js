@@ -5,7 +5,12 @@ import MyContext from '../../Context/MyContext';
 import fetchCustom from '../../services/FetchCustom';
 
 const IngredientsCards = ({ endpoint, page }) => {
-  const { ingredients, setIngredients } = useContext(MyContext);
+  const {
+    ingredients,
+    setIngredients,
+    setIsExplorerIngredients,
+    setData,
+  } = useContext(MyContext);
   const pageStr = page === 'Foods' ? 'foods' : 'drinks';
   const recipeType = page === 'Foods' ? 'meals' : 'drinks';
   const ingredientsType = page === 'Foods' ? 'strIngredient' : 'strIngredient1';
@@ -13,6 +18,11 @@ const IngredientsCards = ({ endpoint, page }) => {
   const imgUrl = page === 'Foods'
     ? 'https://www.themealdb.com/images/ingredients/'
     : 'https://www.thecocktaildb.com/images/ingredients/';
+
+  const redirectUrl = page === 'Foods'
+    ? 'https://www.themealdb.com/api/json/v1/1/filter.php?i='
+    : 'https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=';
+
   useEffect(() => {
     const maxCards = 12;
 
@@ -24,7 +34,15 @@ const IngredientsCards = ({ endpoint, page }) => {
     <div>
       {ingredients && ingredients.length >= 1
         && ingredients.map((recipe, index) => (
-          <Link key={ recipe[ingredientsType] } to={ `/${pageStr}` }>
+          <Link
+            key={ index }
+            onClick={ () => {
+              fetchCustom(`${redirectUrl}${recipe[ingredientsType]}`)
+                .then((data) => setData(data))
+                .then(setIsExplorerIngredients(true));
+            } }
+            to={ `/${pageStr}` }
+          >
             <div data-testid={ `${index}-ingredient-card` }>
               <img
                 data-testid={ `${index}-card-img` }

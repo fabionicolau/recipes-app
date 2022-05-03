@@ -1,5 +1,4 @@
 import React, { useEffect, useContext } from 'react';
-import propTypes from 'prop-types';
 import MyContext from '../../Context/MyContext';
 import Header from '../../Components/Header';
 import FooterMenu from '../../Components/FooterMenu';
@@ -7,33 +6,29 @@ import RecipeCards from '../../Components/RecipeCards';
 import fetchCustom from '../../services/FetchCustom';
 import Categories from '../../Components/Categories/Index';
 
-const Drinks = ({ title }) => {
-  const { setData, setCategoriesData } = useContext(MyContext);
+const Drinks = () => {
+  const { setData, setCategoriesData, isExplorerIngredients } = useContext(MyContext);
   const endpointRoot = 'https://www.thecocktaildb.com/api/json/v1/1/';
 
   useEffect(() => {
-    setData([]);
     const endpoint = `${endpointRoot}search.php?s=`;
     const endpointCategories = `${endpointRoot}list.php?c=list`;
     const FIVE = 5;
-    fetchCustom(endpoint).then((data) => setData(data));
+    if (!isExplorerIngredients) {
+      fetchCustom(endpoint).then((data) => setData(data));
+    }
     fetchCustom(endpointCategories)
       .then(({ drinks }) => setCategoriesData(drinks.slice(0, FIVE)));
-  }, [setData, setCategoriesData]);
+  }, [setData, setCategoriesData, isExplorerIngredients]);
 
   return (
     <>
       <Header title="Drinks" endpoint={ endpointRoot } />
-      <h1>{ title }</h1>
       <Categories endpoint={ endpointRoot } />
       <RecipeCards page="Drinks" />
       <FooterMenu />
     </>
   );
 };
-
-Drinks.propTypes = {
-  title: propTypes.string,
-}.isRequired;
 
 export default Drinks;

@@ -22,7 +22,7 @@ const RecipeCards = ({ page, isRecomendation }) => {
     global.alert('Sorry, we haven\'t found any recipes for these filters.');
   }
 
-  const six = 5;
+  const six = 6;
   const twelve = 12;
   const maxCards = isRecomendation ? six : twelve;
 
@@ -43,6 +43,7 @@ const RecipeCards = ({ page, isRecomendation }) => {
                 data-testid={ `${index}-card-img` }
                 src={ recipe[recipeImage] }
                 alt={ recipe[recipeName] }
+                width="180"
               />
               <p
                 data-testid={ `${index}${DataIdRecomendation(isRecomendation)}` }

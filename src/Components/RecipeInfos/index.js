@@ -39,6 +39,7 @@ const RecipeInfos = ({ page, recomendation }) => {
         data-testid="recipe-photo"
         src={ recipeDetails?.[recipes][0][recipeImage] }
         alt={ recipeDetails?.[recipes][0][recipeName] }
+        width="350"
       />
       {isCopied
         ? 'Link copied!'
@@ -59,16 +60,14 @@ const RecipeInfos = ({ page, recomendation }) => {
       </button>
       <h2 data-testid="recipe-title">{ recipeDetails?.[recipes][0][recipeName] }</h2>
       <p data-testid="recipe-category">{ recipeDetails?.[recipes][0][recipeCategory]}</p>
-      <p data-testid="0-ingredient-name-and-measure">name and measure</p>
       <p data-testid="instructions">{ recipeDetails?.[recipes][0].strInstructions}</p>
       { recipeDetails?.[recipes][0][recipeVideo] && (<embed
         data-testid="video"
         src={ `https://www.youtube.com/embed/${youtubeId && youtubeId[1]}` }
         allowFullScreen={ false }
-        width="425"
+        width="350"
         height="344"
       />) }
-      <p data-testid="0-recomendation-card">recomendation</p>
       <RecipeCards page={ recomendation } isRecomendation />
       <button data-testid="start-recipe-btn" type="button">Start Recipe</button>
     </div>

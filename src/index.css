@@ -17,7 +17,7 @@ footer {
 
 .carousel {
   width: 100%;
-  overflow: hidden;
+  overflow-x: scroll;
   display: flex;
   margin-top: 20px;
 }

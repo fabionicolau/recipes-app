@@ -5,6 +5,7 @@ import fetchCustom from '../../services/FetchCustom';
 import shareIcon from '../../images/shareIcon.svg';
 import MyContext from '../../Context/MyContext';
 import RecipeCards from '../RecipeCards';
+import SwitchButtons from '../SwitchButtons';
 
 const copy = require('clipboard-copy');
 
@@ -30,6 +31,19 @@ const RecipeInfos = ({ page, recomendation }) => {
   }, [id, recipeURL, setData, recomendationURL]);
 
   const youtubeId = recipeDetails?.[recipes][0][recipeVideo]?.split('=');
+
+  const filterIngredients = (param) => {
+    if (recipeDetails?.[recipes][0]) {
+      const ingredients = Object.entries(recipeDetails[recipes][0]);
+      const filteredIngredients = ingredients
+        .filter((element) => element[0]
+          .includes(param) && element[1] && element[1] !== ' ')
+        .map((element) => element[1]);
+      return filteredIngredients;
+    }
+  };
+  const ingredients = filterIngredients('strIngredient');
+  const measures = filterIngredients('strMeasure');
 
   return (
     <div>
@@ -58,6 +72,15 @@ const RecipeInfos = ({ page, recomendation }) => {
       </button>
       <h2 data-testid="recipe-title">{ recipeDetails?.[recipes][0][recipeName] }</h2>
       <p data-testid="recipe-category">{ recipeDetails?.[recipes][0][recipeCategory]}</p>
+      {ingredients?.length > 0 && ingredients.map((ingredient, index) => (
+        <p
+          data-testid={ `${index}-ingredient-name-and-measure` }
+          key={ ingredient }
+        >
+          {`${ingredient} - ${measures[index]}`}
+
+        </p>
+      ))}
       <p data-testid="instructions">{ recipeDetails?.[recipes][0].strInstructions}</p>
       { recipeDetails?.[recipes][0][recipeVideo] && (<embed
         data-testid="video"
@@ -67,7 +90,7 @@ const RecipeInfos = ({ page, recomendation }) => {
         height="344"
       />) }
       <RecipeCards page={ recomendation } isRecomendation />
-      <button data-testid="start-recipe-btn" type="button">Start Recipe</button>
+      <SwitchButtons />
     </div>
   );
 };

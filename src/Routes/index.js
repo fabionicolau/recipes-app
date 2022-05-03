@@ -14,6 +14,7 @@ import DoneRecipes from '../pages/DoneRecipes';
 import FavoriteRecipes from '../pages/FavoriteRecipes';
 import FoodDetails from '../pages/FoodDetails';
 import DrinkDetails from '../pages/DrinkDetails';
+import NotFound from '../pages/NotFound';
 
 const Routes = () => (
   <Switch>
@@ -50,6 +51,11 @@ const Routes = () => (
       exact
       path="/favorite-recipes"
       component={ FavoriteRecipes }
+    />
+    <Route
+      exact
+      path="*"
+      component={ NotFound }
     />
   </Switch>
 );

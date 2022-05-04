@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import propTypes from 'prop-types';
 import fetchCustom from '../../services/FetchCustom';
 import shareIcon from '../../images/shareIcon.svg';
+import BtnFavoritar from '../BtnFavoritar';
 import MyContext from '../../Context/MyContext';
 import RecipeCards from '../RecipeCards';
 import SwitchButtons from '../SwitchButtons';
@@ -68,9 +69,12 @@ const RecipeInfos = ({ page, recomendation }) => {
             <img src={ shareIcon } alt="Share icon" />
           </button>
         )}
-      <button data-testid="favorite-btn" type="button">
+      <BtnFavoritar
+        recipe={ recipeDetails?.[recipes][0] }
+      />
+      {/* <button data-testid="favorite-btn" type="button">
         Favorite
-      </button>
+      </button> */}
       <h2 data-testid="recipe-title">{ recipeDetails?.[recipes][0][recipeName] }</h2>
       <p data-testid="recipe-category">{ recipeDetails?.[recipes][0][recipeCategory]}</p>
       {ingredients?.length > 0 && ingredients.map((ingredient, index) => (

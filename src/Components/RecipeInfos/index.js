@@ -16,6 +16,7 @@ const RecipeInfos = ({ page, recomendation }) => {
   const [isCopied, setIsCopied] = useState(false);
 
   const recipes = page === 'Foods' ? 'meals' : 'drinks';
+  const recipeId = page === 'Foods' ? 'idMeal' : 'idDrink';
   const recipeName = page === 'Foods' ? 'strMeal' : 'strDrink';
   const recipeImage = page === 'Foods' ? 'strMealThumb' : 'strDrinkThumb';
   const recipeCategory = page === 'Foods' ? 'strCategory' : 'strAlcoholic';
@@ -90,7 +91,11 @@ const RecipeInfos = ({ page, recomendation }) => {
         height="344"
       />) }
       <RecipeCards page={ recomendation } isRecomendation />
-      <SwitchButtons />
+      <SwitchButtons
+        page={ page }
+        recipeId={ recipeDetails?.[recipes][0][recipeId] }
+        ingredients={ ingredients }
+      />
     </div>
   );
 };

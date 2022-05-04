@@ -14,6 +14,8 @@ import DoneRecipes from '../pages/DoneRecipes';
 import FavoriteRecipes from '../pages/FavoriteRecipes';
 import FoodDetails from '../pages/FoodDetails';
 import DrinkDetails from '../pages/DrinkDetails';
+import FoodsInProgress from '../pages/FoodsInProgress';
+import DrinksInProgress from '../pages/DrinksInProgress';
 import NotFound from '../pages/NotFound';
 
 const Routes = () => (
@@ -41,6 +43,16 @@ const Routes = () => (
       exact
       path="/explore/foods/nationalities"
       component={ ExploreFoodsNationalities }
+    />
+    <Route
+      exact
+      path="/foods/:id/in-progress"
+      component={ FoodsInProgress }
+    />
+    <Route
+      exact
+      path="/drinks/:id/in-progress"
+      component={ DrinksInProgress }
     />
     <Route
       exact

@@ -6,6 +6,7 @@
 export const recipeSelector = (page) => (page === 'Foods' ? 'meals' : 'cocktails');
 const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
 const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
+const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
 
 export const DataIdType = (isRecomendation) => (isRecomendation
   ? 'recomendation' : 'recipe');
@@ -23,6 +24,11 @@ export const verifyInProgress = (page, recipeId) => {
 
 export const verifyDone = (recipeId) => {
   const recipesGotten = doneRecipes;
+  return recipesGotten?.some((item) => item.id === recipeId);
+};
+
+export const verifyFavorite = (recipeId) => {
+  const recipesGotten = favoriteRecipes;
   return recipesGotten?.some((item) => item.id === recipeId);
 };
 

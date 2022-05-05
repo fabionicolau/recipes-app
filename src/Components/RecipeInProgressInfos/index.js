@@ -5,16 +5,17 @@ import fetchCustom from '../../services/FetchCustom';
 import shareIcon from '../../images/shareIcon.svg';
 import BtnFavoritar from '../BtnFavoritar';
 import MyContext from '../../Context/MyContext';
-import RecipeCards from '../RecipeCards';
 import SwitchButtons from '../SwitchButtons';
+import { recipeSelector } from '../../utils';
 
 const copy = require('clipboard-copy');
 
-const RecipeInfos = ({ page, recomendation }) => {
+const RecipeInProgressInfos = ({ page }) => {
   const { id } = useParams();
   const { setData } = useContext(MyContext);
   const [recipeDetails, setRecipeDetails] = useState();
   const [isCopied, setIsCopied] = useState(false);
+  const [checkedIngredients, setCheckedIngredients] = useState({});
 
   const recipes = page === 'Foods' ? 'meals' : 'drinks';
   const recipeId = page === 'Foods' ? 'idMeal' : 'idDrink';
@@ -22,17 +23,31 @@ const RecipeInfos = ({ page, recomendation }) => {
   const recipeImage = page === 'Foods' ? 'strMealThumb' : 'strDrinkThumb';
   const recipeCategory = page === 'Foods' ? 'strCategory' : 'strAlcoholic';
   const recipeURL = page === 'Foods' ? 'themealdb' : 'thecocktaildb';
-  const recipeVideo = page === 'Foods' ? 'strYoutube' : 'strVideo';
-  const recomendationURL = page === 'Foods' ? 'thecocktaildb' : 'themealdb';
+
+  // didMount
+  useEffect(() => {
+    const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    if (inProgressRecipes) {
+      setCheckedIngredients(inProgressRecipes[recipeSelector(page)][id]
+        .ingredientsWithBoxes);
+    }
+  }, [page, id]);
 
   useEffect(() => {
     fetchCustom(`https://www.${recipeURL}.com/api/json/v1/1/lookup.php?i=${id}`)
       .then((datas) => setRecipeDetails(datas));
-    fetchCustom(`https://www.${recomendationURL}.com/api/json/v1/1/search.php?s=`)
-      .then((datas) => setData(datas));
-  }, [id, recipeURL, setData, recomendationURL]);
+  }, [id, recipeURL, setData]);
 
-  const youtubeId = recipeDetails?.[recipes][0][recipeVideo]?.split('=');
+  // didUpdate
+  useEffect(() => {
+    localStorage.setItem('inProgressRecipes', JSON.stringify({
+      [recipeSelector(page)]: {
+        [id]: {
+          ingredientsWithBoxes: checkedIngredients,
+        },
+      },
+    }));
+  }, [checkedIngredients, id, page]);
 
   const filterIngredients = (param) => {
     if (recipeDetails?.[recipes][0]) {
@@ -46,6 +61,20 @@ const RecipeInfos = ({ page, recomendation }) => {
   };
   const ingredients = filterIngredients('strIngredient');
   const measures = filterIngredients('strMeasure');
+
+  const handleChange = (ingredient) => {
+    setCheckedIngredients({
+      ...checkedIngredients,
+      [ingredient]: !checkedIngredients[ingredient],
+    });
+  };
+
+  const verifyChecked = (ingredient) => {
+    if (checkedIngredients[ingredient]) {
+      return true;
+    }
+    return false;
+  };
 
   return (
     <div>
@@ -62,7 +91,7 @@ const RecipeInfos = ({ page, recomendation }) => {
             data-testid="share-btn"
             type="button"
             onClick={ () => {
-              copy(window.location.href);
+              copy(window.location.href.replace('/in-progress', ''));
               setIsCopied(true);
             } }
           >
@@ -75,36 +104,38 @@ const RecipeInfos = ({ page, recomendation }) => {
       />
       <h2 data-testid="recipe-title">{ recipeDetails?.[recipes][0][recipeName] }</h2>
       <p data-testid="recipe-category">{ recipeDetails?.[recipes][0][recipeCategory]}</p>
+
       {ingredients?.length > 0 && ingredients.map((ingredient, index) => (
         <p
-          data-testid={ `${index}-ingredient-name-and-measure` }
+          data-testid={ `${index}-ingredient-step` }
           key={ ingredient }
         >
-          {`${ingredient} - ${measures[index]}`}
+          <label htmlFor={ `ingredient-step-${index}` }>
+            <input
+              type="checkbox"
+              id={ ingredient }
+              onChange={ ({ target }) => handleChange(target.id) }
+              checked={ verifyChecked(ingredient) }
+            />
+            {`${ingredient} - ${measures[index]}`}
+          </label>
 
         </p>
       ))}
+
       <p data-testid="instructions">{ recipeDetails?.[recipes][0].strInstructions}</p>
-      { recipeDetails?.[recipes][0][recipeVideo] && (<embed
-        data-testid="video"
-        src={ `https://www.youtube.com/embed/${youtubeId && youtubeId[1]}` }
-        allowFullScreen={ false }
-        width="350"
-        height="344"
-      />) }
-      <RecipeCards page={ recomendation } isRecomendation />
       <SwitchButtons
         page={ page }
         recipeId={ recipeDetails?.[recipes][0][recipeId] }
         ingredients={ ingredients }
-        inProgress={ false }
+        inProgress
       />
     </div>
   );
 };
 
-RecipeInfos.propTypes = {
+RecipeInProgressInfos.propTypes = {
   page: propTypes.string,
 }.isRequired;
 
-export default RecipeInfos;
+export default RecipeInProgressInfos;

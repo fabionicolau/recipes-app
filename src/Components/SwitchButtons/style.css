@@ -1,4 +1,8 @@
-.start {
+.start, .done, .in-progress, .in-progress-details {
   bottom: 0;
   position: fixed;
+}
+
+.done {
+  display: hidden;
 }

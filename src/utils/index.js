@@ -22,7 +22,7 @@ export const verifyInProgress = (page, recipeId) => {
   return recipesGotten?.some((key) => key === recipeId);
 };
 
-export const verifyDone = (recipeId) => {
+const verifyDone = (recipeId) => {
   const recipesGotten = doneRecipes;
   return recipesGotten?.some((item) => item.id === recipeId);
 };
@@ -36,9 +36,12 @@ export const verifyStarting = (page, recipeId) => (
   !verifyInProgress(page, recipeId) && !verifyDone(recipeId)
 );
 
-export const classDefiner = (page, recipeId) => {
-  if (verifyInProgress(page, recipeId)) {
+export const classDefiner = (page, recipeId, inProgress) => {
+  if (inProgress) {
     return 'in-progress';
+  }
+  if (verifyInProgress(page, recipeId)) {
+    return 'in-progress-details';
   }
   if (verifyDone(recipeId)) {
     return 'done';
@@ -46,22 +49,29 @@ export const classDefiner = (page, recipeId) => {
   return 'start';
 };
 
-export const testIdDefiner = (page, recipeId) => {
+export const testIdDefiner = (page, recipeId, inProgress) => {
   if (verifyInProgress(page, recipeId)) {
     return 'start-recipe-btn';
   }
-  if (verifyDone(recipeId)) {
+  if (inProgress) {
     return 'finish-recipe-btn';
   }
   return 'start-recipe-btn';
 };
 
-export const innerHTMLDefiner = (page, recipeId) => {
+export const innerHTMLDefiner = (page, recipeId, inProgress) => {
   if (verifyInProgress(page, recipeId)) {
     return 'Continue Recipe';
   }
-  if (verifyDone(recipeId)) {
+  if (inProgress) {
     return 'Finish Recipe';
   }
   return 'Start Recipe';
+};
+
+export const disabledDefiner = (inProgress) => {
+  if (inProgress) {
+    return true;
+  }
+  return false;
 };

@@ -1,42 +1,49 @@
 import React, { useEffect, useState, useContext } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 import propTypes from 'prop-types';
 import fetchCustom from '../../services/FetchCustom';
-import shareIcon from '../../images/shareIcon.svg';
 import BtnFavoritar from '../BtnFavoritar';
 import MyContext from '../../Context/MyContext';
-import SwitchButtons from '../SwitchButtons';
-import { recipeSelector } from '../../utils';
-
-const copy = require('clipboard-copy');
+import BtnShare from '../BtnShare';
+import {
+  recipeSelector,
+  recipes,
+  recipeName,
+  recipeImage,
+  recipeCategory,
+  recipeURL,
+} from '../../utils';
+import './style.css';
 
 const RecipeInProgressInfos = ({ page }) => {
   const { id } = useParams();
   const { setData } = useContext(MyContext);
   const [recipeDetails, setRecipeDetails] = useState();
-  const [isCopied, setIsCopied] = useState(false);
   const [checkedIngredients, setCheckedIngredients] = useState({});
+  const [isDisabled, setIsDisabled] = useState(true);
 
-  const recipes = page === 'Foods' ? 'meals' : 'drinks';
-  const recipeId = page === 'Foods' ? 'idMeal' : 'idDrink';
-  const recipeName = page === 'Foods' ? 'strMeal' : 'strDrink';
-  const recipeImage = page === 'Foods' ? 'strMealThumb' : 'strDrinkThumb';
-  const recipeCategory = page === 'Foods' ? 'strCategory' : 'strAlcoholic';
-  const recipeURL = page === 'Foods' ? 'themealdb' : 'thecocktaildb';
-
+  const history = useHistory();
   // didMount
   useEffect(() => {
     const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
     if (inProgressRecipes) {
       setCheckedIngredients(inProgressRecipes[recipeSelector(page)][id]
-        .ingredientsWithBoxes);
+        ?.ingredientsWithBoxes);
+      if (Object
+        .values(inProgressRecipes[recipeSelector(page)][id]
+          .ingredientsWithBoxes)
+        .every((data) => data === true)) {
+        setIsDisabled(false);
+      } else {
+        setIsDisabled(true);
+      }
     }
   }, [page, id]);
 
   useEffect(() => {
-    fetchCustom(`https://www.${recipeURL}.com/api/json/v1/1/lookup.php?i=${id}`)
+    fetchCustom(`https://www.${recipeURL(page)}.com/api/json/v1/1/lookup.php?i=${id}`)
       .then((datas) => setRecipeDetails(datas));
-  }, [id, recipeURL, setData]);
+  }, [id, page, setData]);
 
   // didUpdate
   useEffect(() => {
@@ -47,11 +54,18 @@ const RecipeInProgressInfos = ({ page }) => {
         },
       },
     }));
+    if (Object
+      .values(checkedIngredients)
+      .every((data) => data === true)) {
+      setIsDisabled(false);
+    } else {
+      setIsDisabled(true);
+    }
   }, [checkedIngredients, id, page]);
 
   const filterIngredients = (param) => {
-    if (recipeDetails?.[recipes][0]) {
-      const ingredients = Object.entries(recipeDetails[recipes][0]);
+    if (recipeDetails?.[recipes(page)][0]) {
+      const ingredients = Object.entries(recipeDetails[recipes(page)][0]);
       const filteredIngredients = ingredients
         .filter((element) => element[0]
           .includes(param) && element[1] && element[1] !== ' ')
@@ -76,34 +90,35 @@ const RecipeInProgressInfos = ({ page }) => {
     return false;
   };
 
+  const handleClick = () => {
+    history.push('/done-recipes');
+  };
+
   return (
     <div>
       <img
         data-testid="recipe-photo"
-        src={ recipeDetails?.[recipes][0][recipeImage] }
-        alt={ recipeDetails?.[recipes][0][recipeName] }
+        src={ recipeDetails?.[recipes(page)][0][recipeImage(page)] }
+        alt={ recipeDetails?.[recipes(page)][0][recipeName(page)] }
         width="350"
       />
-      {isCopied
-        ? 'Link copied!'
-        : (
-          <button
-            data-testid="share-btn"
-            type="button"
-            onClick={ () => {
-              copy(window.location.href.replace('/in-progress', ''));
-              setIsCopied(true);
-            } }
-          >
-            <img src={ shareIcon } alt="Share icon" />
-          </button>
-        )}
+      <BtnShare />
       <BtnFavoritar
-        recipe={ recipeDetails?.[recipes][0] }
+        recipe={ recipeDetails?.[recipes(page)][0] }
         page={ page }
       />
-      <h2 data-testid="recipe-title">{ recipeDetails?.[recipes][0][recipeName] }</h2>
-      <p data-testid="recipe-category">{ recipeDetails?.[recipes][0][recipeCategory]}</p>
+      <h2
+        data-testid="recipe-title"
+      >
+        { recipeDetails?.[recipes(page)][0][recipeName(page)] }
+
+      </h2>
+      <p
+        data-testid="recipe-category"
+      >
+        { recipeDetails?.[recipes(page)][0][recipeCategory(page)]}
+
+      </p>
 
       {ingredients?.length > 0 && ingredients.map((ingredient, index) => (
         <p
@@ -123,13 +138,21 @@ const RecipeInProgressInfos = ({ page }) => {
         </p>
       ))}
 
-      <p data-testid="instructions">{ recipeDetails?.[recipes][0].strInstructions}</p>
-      <SwitchButtons
-        page={ page }
-        recipeId={ recipeDetails?.[recipes][0][recipeId] }
-        ingredients={ ingredients }
-        inProgress
-      />
+      <p
+        data-testid="instructions"
+      >
+        { recipeDetails?.[recipes(page)][0].strInstructions}
+
+      </p>
+      <button
+        data-testid="finish-recipe-btn"
+        className="in-progress"
+        type="button"
+        disabled={ isDisabled }
+        onClick={ handleClick }
+      >
+        Finish Recipe
+      </button>
     </div>
   );
 };

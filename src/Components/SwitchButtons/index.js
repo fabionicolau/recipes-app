@@ -8,35 +8,31 @@ import {
   classDefiner,
   testIdDefiner,
   innerHTMLDefiner,
-  disabledDefiner,
   recipeSelector,
 } from '../../utils';
 
-const SwitchButtons = ({ recipeId, ingredients, page, inProgress }) => {
+const SwitchButtons = ({ recipeId, ingredients, page }) => {
   const history = useHistory();
   const [buttonInfo, setButtonInfo] = useState({
     class: '',
     testId: '',
     innerHTML: '',
-    disabled: false,
   });
 
   // didMount
   useEffect(() => {
     const defineButtonInfo = () => {
-      const classDefinerResult = classDefiner(page, recipeId, inProgress);
-      const testIdDefinerResult = testIdDefiner(page, recipeId, inProgress);
-      const innerHTMLDefinerResult = innerHTMLDefiner(page, recipeId, inProgress);
-      const disabledDefinerResult = disabledDefiner(inProgress);
+      const classDefinerResult = classDefiner(page, recipeId);
+      const testIdDefinerResult = testIdDefiner(page, recipeId);
+      const innerHTMLDefinerResult = innerHTMLDefiner(page, recipeId);
       setButtonInfo({
         class: classDefinerResult,
         testId: testIdDefinerResult,
         innerHTML: innerHTMLDefinerResult,
-        disabled: disabledDefinerResult,
       });
     };
     defineButtonInfo();
-  }, [recipeId, page, inProgress]);
+  }, [recipeId, page]);
 
   const recipePage = page === 'Foods' ? 'foods' : 'drinks';
 
@@ -70,7 +66,6 @@ const SwitchButtons = ({ recipeId, ingredients, page, inProgress }) => {
       data-testid={ buttonInfo.testId }
       type="button"
       onClick={ handleClick }
-      disabled={ buttonInfo.disabled }
     >
       { buttonInfo.innerHTML }
     </button>

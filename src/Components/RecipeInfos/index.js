@@ -2,19 +2,16 @@ import React, { useEffect, useState, useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import propTypes from 'prop-types';
 import fetchCustom from '../../services/FetchCustom';
-import shareIcon from '../../images/shareIcon.svg';
 import BtnFavoritar from '../BtnFavoritar';
 import MyContext from '../../Context/MyContext';
 import RecipeCards from '../RecipeCards';
 import SwitchButtons from '../SwitchButtons';
-
-const copy = require('clipboard-copy');
+import BtnShare from '../BtnShare';
 
 const RecipeInfos = ({ page, recomendation }) => {
   const { id } = useParams();
   const { setData } = useContext(MyContext);
   const [recipeDetails, setRecipeDetails] = useState();
-  const [isCopied, setIsCopied] = useState(false);
 
   const recipes = page === 'Foods' ? 'meals' : 'drinks';
   const recipeId = page === 'Foods' ? 'idMeal' : 'idDrink';
@@ -55,20 +52,7 @@ const RecipeInfos = ({ page, recomendation }) => {
         alt={ recipeDetails?.[recipes][0][recipeName] }
         width="350"
       />
-      {isCopied
-        ? 'Link copied!'
-        : (
-          <button
-            data-testid="share-btn"
-            type="button"
-            onClick={ () => {
-              copy(window.location.href);
-              setIsCopied(true);
-            } }
-          >
-            <img src={ shareIcon } alt="Share icon" />
-          </button>
-        )}
+      <BtnShare />
       <BtnFavoritar
         recipe={ recipeDetails?.[recipes][0] }
         page={ page }
@@ -97,7 +81,6 @@ const RecipeInfos = ({ page, recomendation }) => {
         page={ page }
         recipeId={ recipeDetails?.[recipes][0][recipeId] }
         ingredients={ ingredients }
-        inProgress={ false }
       />
     </div>
   );

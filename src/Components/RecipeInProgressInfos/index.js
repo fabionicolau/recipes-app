@@ -21,6 +21,8 @@ const RecipeInProgressInfos = ({ page }) => {
   const [recipeDetails, setRecipeDetails] = useState();
   const [checkedIngredients, setCheckedIngredients] = useState({});
   const [isDisabled, setIsDisabled] = useState(true);
+  const [ingredients, setIngredients] = useState([]);
+  const [measures, setMeasures] = useState([]);
 
   const history = useHistory();
   // didMount
@@ -42,7 +44,30 @@ const RecipeInProgressInfos = ({ page }) => {
 
   useEffect(() => {
     fetchCustom(`https://www.${recipeURL(page)}.com/api/json/v1/1/lookup.php?i=${id}`)
-      .then((datas) => setRecipeDetails(datas));
+      .then((datas) => {
+        const initialData = Object.entries(datas[recipes(page)][0]);
+        const filterData = (strKey) => initialData.filter((element) => element[0]
+          .includes(strKey) && element[1] && element[1] !== ' ')
+          .map((element) => element[1]);
+        const filteredIngredients = filterData('strIngredient');
+        const filteredMeasures = filterData('strMeasure');
+        setIngredients(filteredIngredients);
+        setMeasures(filteredMeasures);
+        let test = filteredIngredients.reduce((acc, curr) => {
+          acc[curr] = false;
+          return acc;
+        }, {});
+        const previousStorage = JSON.parse(localStorage.getItem('inProgressRecipes'));
+        const previousData = Object.entries(previousStorage[recipeSelector(page)][id]
+          .ingredientsWithBoxes);
+        if (previousData.some((data) => data[1] === true)) {
+          previousData.forEach((data) => {
+            test = { ...test, [data[0]]: data[1] };
+          });
+        }
+        setCheckedIngredients(test);
+        setRecipeDetails(datas);
+      });
   }, [id, page, setData]);
 
   // didUpdate
@@ -62,19 +87,6 @@ const RecipeInProgressInfos = ({ page }) => {
       setIsDisabled(true);
     }
   }, [checkedIngredients, id, page]);
-
-  const filterIngredients = (param) => {
-    if (recipeDetails?.[recipes(page)][0]) {
-      const ingredients = Object.entries(recipeDetails[recipes(page)][0]);
-      const filteredIngredients = ingredients
-        .filter((element) => element[0]
-          .includes(param) && element[1] && element[1] !== ' ')
-        .map((element) => element[1]);
-      return filteredIngredients;
-    }
-  };
-  const ingredients = filterIngredients('strIngredient');
-  const measures = filterIngredients('strMeasure');
 
   const handleChange = (ingredient) => {
     setCheckedIngredients({

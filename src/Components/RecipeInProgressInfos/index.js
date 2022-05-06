@@ -1,9 +1,8 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import propTypes from 'prop-types';
 import fetchCustom from '../../services/FetchCustom';
 import BtnFavoritar from '../BtnFavoritar';
-import MyContext from '../../Context/MyContext';
 import BtnShare from '../BtnShare';
 import {
   recipeSelector,
@@ -17,10 +16,11 @@ import './style.css';
 
 const RecipeInProgressInfos = ({ page }) => {
   const { id } = useParams();
-  const { setData } = useContext(MyContext);
   const [recipeDetails, setRecipeDetails] = useState();
   const [checkedIngredients, setCheckedIngredients] = useState({});
   const [isDisabled, setIsDisabled] = useState(true);
+  const [ingredients, setIngredients] = useState([]);
+  const [measures, setMeasures] = useState([]);
 
   const history = useHistory();
   // didMount
@@ -42,8 +42,31 @@ const RecipeInProgressInfos = ({ page }) => {
 
   useEffect(() => {
     fetchCustom(`https://www.${recipeURL(page)}.com/api/json/v1/1/lookup.php?i=${id}`)
-      .then((datas) => setRecipeDetails(datas));
-  }, [id, page, setData]);
+      .then((datas) => {
+        const initialData = Object.entries(datas[recipes(page)][0]);
+        const filterData = (strKey) => initialData.filter((element) => element[0]
+          .includes(strKey) && element[1] && element[1] !== ' ')
+          .map((element) => element[1]);
+        const filteredIngredients = filterData('strIngredient');
+        const filteredMeasures = filterData('strMeasure');
+        setIngredients(filteredIngredients);
+        setMeasures(filteredMeasures);
+        let newCheckedIngredients = filteredIngredients.reduce((acc, curr) => {
+          acc[curr] = false;
+          return acc;
+        }, {});
+        const previousStorage = JSON.parse(localStorage.getItem('inProgressRecipes'));
+        const previousData = Object.entries(previousStorage[recipeSelector(page)][id]
+          .ingredientsWithBoxes);
+        if (previousData.some((data) => data[1] === true)) {
+          previousData.forEach((data) => {
+            newCheckedIngredients = { ...newCheckedIngredients, [data[0]]: data[1] };
+          });
+        }
+        setCheckedIngredients(newCheckedIngredients);
+        setRecipeDetails(datas);
+      });
+  }, [id, page]);
 
   // didUpdate
   useEffect(() => {
@@ -62,19 +85,6 @@ const RecipeInProgressInfos = ({ page }) => {
       setIsDisabled(true);
     }
   }, [checkedIngredients, id, page]);
-
-  const filterIngredients = (param) => {
-    if (recipeDetails?.[recipes(page)][0]) {
-      const ingredients = Object.entries(recipeDetails[recipes(page)][0]);
-      const filteredIngredients = ingredients
-        .filter((element) => element[0]
-          .includes(param) && element[1] && element[1] !== ' ')
-        .map((element) => element[1]);
-      return filteredIngredients;
-    }
-  };
-  const ingredients = filterIngredients('strIngredient');
-  const measures = filterIngredients('strMeasure');
 
   const handleChange = (ingredient) => {
     setCheckedIngredients({

@@ -1,9 +1,8 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import propTypes from 'prop-types';
 import fetchCustom from '../../services/FetchCustom';
 import BtnFavoritar from '../BtnFavoritar';
-import MyContext from '../../Context/MyContext';
 import BtnShare from '../BtnShare';
 import {
   recipeSelector,
@@ -17,7 +16,6 @@ import './style.css';
 
 const RecipeInProgressInfos = ({ page }) => {
   const { id } = useParams();
-  const { setData } = useContext(MyContext);
   const [recipeDetails, setRecipeDetails] = useState();
   const [checkedIngredients, setCheckedIngredients] = useState({});
   const [isDisabled, setIsDisabled] = useState(true);
@@ -53,7 +51,7 @@ const RecipeInProgressInfos = ({ page }) => {
         const filteredMeasures = filterData('strMeasure');
         setIngredients(filteredIngredients);
         setMeasures(filteredMeasures);
-        let test = filteredIngredients.reduce((acc, curr) => {
+        let newCheckedIngredients = filteredIngredients.reduce((acc, curr) => {
           acc[curr] = false;
           return acc;
         }, {});
@@ -62,13 +60,13 @@ const RecipeInProgressInfos = ({ page }) => {
           .ingredientsWithBoxes);
         if (previousData.some((data) => data[1] === true)) {
           previousData.forEach((data) => {
-            test = { ...test, [data[0]]: data[1] };
+            newCheckedIngredients = { ...newCheckedIngredients, [data[0]]: data[1] };
           });
         }
-        setCheckedIngredients(test);
+        setCheckedIngredients(newCheckedIngredients);
         setRecipeDetails(datas);
       });
-  }, [id, page, setData]);
+  }, [id, page]);
 
   // didUpdate
   useEffect(() => {

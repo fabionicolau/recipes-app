@@ -4,7 +4,7 @@ import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../../images/blackHeartIcon.svg';
 import { verifyFavorite } from '../../utils';
 
-const BtnFavoritar = ({ recipe, page }) => {
+const BtnFavoritar = ({ recipe, page, testId }) => {
   const [isFavorite, setIsFavorite] = useState(false);
   const [heartColor, setHeartColor] = useState(`${whiteHeartIcon}`);
   const [favoriteObject, setFavoriteObject] = useState({
@@ -83,7 +83,7 @@ const BtnFavoritar = ({ recipe, page }) => {
 
     <div>
       <button
-        data-testid="favorite-btn"
+        data-testid={ testId }
         type="button"
         onClick={ () => setIsFavorite(!isFavorite) }
         src={ heartColor }

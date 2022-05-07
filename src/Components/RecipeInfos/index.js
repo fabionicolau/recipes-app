@@ -41,6 +41,7 @@ const RecipeInfos = ({ page, recomendation }) => {
       return filteredIngredients;
     }
   };
+
   const ingredients = filterIngredients('strIngredient');
   const measures = filterIngredients('strMeasure');
 
@@ -52,10 +53,11 @@ const RecipeInfos = ({ page, recomendation }) => {
         alt={ recipeDetails?.[recipes][0][recipeName] }
         width="350"
       />
-      <BtnShare />
+      <BtnShare testId="share-btn" />
       <BtnFavoritar
         recipe={ recipeDetails?.[recipes][0] }
         page={ page }
+        testId="favorite-btn"
       />
       <h2 data-testid="recipe-title">{ recipeDetails?.[recipes][0][recipeName] }</h2>
       <p data-testid="recipe-category">{ recipeDetails?.[recipes][0][recipeCategory]}</p>

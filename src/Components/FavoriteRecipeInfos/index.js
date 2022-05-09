@@ -15,6 +15,16 @@ const FavoriteRecipeInfos = () => {
     setFavoriteRecipes(JSON.parse(favorito));
   }, []);
 
+  const handleFavoriteClick = (id) => {
+    setFavoriteRecipes((prevState) => {
+      const newState = [...prevState];
+      const index = newState.findIndex((recipe) => recipe.id === id);
+      newState.splice(index, 1);
+      localStorage.setItem('favoriteRecipes', JSON.stringify(newState));
+      return newState;
+    });
+  };
+
   return favoriteRecipes && favoriteRecipes.map((item, index) => {
     const page = item.type === 'food' ? 'Foods' : 'Drinks';
 
@@ -45,6 +55,8 @@ const FavoriteRecipeInfos = () => {
         <button
           data-testid={ `${index}-horizontal-favorite-btn` }
           type="button"
+          id={ item.id }
+          onClick={ ({ target: { id } }) => handleFavoriteClick(id) }
           src={ blackHeartIcon }
         >
           <img

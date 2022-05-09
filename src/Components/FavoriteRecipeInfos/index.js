@@ -1,19 +1,22 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import propTypes from 'prop-types';
 import blackHeartIcon from '../../images/blackHeartIcon.svg';
 import shareIcon from '../../images/shareIcon.svg';
+import MyContext from '../../Context/MyContext';
 
 const copy = require('clipboard-copy');
 
 const FavoriteRecipeInfos = () => {
+  const { favoriteRecipes, setFavoriteRecipes } = useContext(MyContext);
   const [isCopied, setIsCopied] = useState(false);
-  const [favoriteRecipes, setFavoriteRecipes] = useState([]);
+
+  // const [favoriteRecipes, setFavoriteRecipes] = useState([]);
 
   useEffect(() => {
     const favorito = localStorage.getItem('favoriteRecipes');
     setFavoriteRecipes(JSON.parse(favorito));
-  }, []);
+  }, [setFavoriteRecipes]);
 
   const handleFavoriteClick = (id) => {
     setFavoriteRecipes((prevState) => {

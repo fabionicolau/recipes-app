@@ -112,11 +112,10 @@ const RecipeInProgressInfos = ({ page }) => {
         alt={ recipeDetails?.[recipes(page)][0][recipeName(page)] }
         width="350"
       />
-      <BtnShare testId="share-btn" />
+      <BtnShare />
       <BtnFavoritar
         recipe={ recipeDetails?.[recipes(page)][0] }
         page={ page }
-        testId="favorite-btn"
       />
       <h2
         data-testid="recipe-title"

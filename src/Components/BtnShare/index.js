@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
 import shareIcon from '../../images/shareIcon.svg';
 
 const copy = require('clipboard-copy');
 
-const BtnShare = ({ testId }) => {
+const BtnShare = () => {
   const [isCopied, setIsCopied] = useState(false);
 
   return (
@@ -13,12 +12,13 @@ const BtnShare = ({ testId }) => {
         ? 'Link copied!'
         : (
           <button
-            data-testid={ testId }
+            data-testid="share-btn"
             type="button"
             onClick={ () => {
               copy(window.location.href.replace('/in-progress', ''));
               setIsCopied(true);
             } }
+            src={ shareIcon }
           >
             <img src={ shareIcon } alt="Share icon" />
           </button>
@@ -26,9 +26,5 @@ const BtnShare = ({ testId }) => {
     </div>
   );
 };
-
-BtnShare.propTypes = {
-  testId: PropTypes.string.isRequired,
-}.isRequired;
 
 export default BtnShare;

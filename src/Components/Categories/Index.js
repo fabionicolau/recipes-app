@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import MyContext from '../../Context/MyContext';
 import fetchCustom from '../../services/FetchCustom';
+import StyledDiv from './style';
 
 const Categories = ({ endpoint }) => {
   const {
@@ -24,7 +25,7 @@ const Categories = ({ endpoint }) => {
   };
 
   return (
-    <div>
+    <StyledDiv>
       <button
         type="button"
         key="all"
@@ -45,7 +46,7 @@ const Categories = ({ endpoint }) => {
           {strCategory}
         </button>
       )) }
-    </div>
+    </StyledDiv>
   );
 };
 

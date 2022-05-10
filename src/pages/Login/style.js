@@ -25,7 +25,8 @@ export const StyledLogin = styled.form`
     align-items: center;
     justify-content: center;
     border: 1px solid #fff;
-    background-color: #DAA520;
+    /* background-color: #DAA520; */
+    background-color: #194544;
     margin: 10px;
     border-radius: 10px;
     cursor: pointer;
@@ -49,7 +50,8 @@ export const StyledLogin = styled.form`
     padding-left: 10px;
     height: 50px;
     border: none;
-    background-color: #ff8906;
+    /* background-color: #ff8906; */
+    background-color: #fff;
     border-radius: 10px;
     margin: 2px 10px;
     outline: none;
@@ -57,10 +59,11 @@ export const StyledLogin = styled.form`
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    color: #fff;
+    color: #000;
 
     ::placeholder {
-      color: #ddd9ce;
+      /* color: #ddd9ce; */
+      color: #000;
     }
 
     @media(max-width: 700px) {

@@ -6,9 +6,13 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import MyProvider from './Context/MyProvider';
 
+import GlobalStyle from './styleService/GlobalStyle';
+
 ReactDOM.render(
   <BrowserRouter>
     <MyProvider>
+      <GlobalStyle />
+
       <App />
     </MyProvider>
   </BrowserRouter>,

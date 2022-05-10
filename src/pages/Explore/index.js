@@ -1,36 +1,39 @@
 import React from 'react';
 import propTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import Header from '../../Components/Header';
 import FooterMenu from '../../Components/FooterMenu';
+import StyledDiv from './style';
 
-const Explore = ({ title }) => (
-  <>
-    <Header title="Explore" />
-    <h1>{title}</h1>
-    <Link to="/explore/foods">
-      <div>
+const Explore = () => {
+  const history = useHistory();
+  return (
+    <>
+      <Header title="Explore" />
+
+      <StyledDiv>
+
         <button
           type="button"
           data-testid="explore-foods"
+          onClick={ () => history.push('/explore/foods') }
         >
           Explore Foods
         </button>
-      </div>
-    </Link>
-    <Link to="/explore/drinks">
-      <div>
+
         <button
           type="button"
           data-testid="explore-drinks"
+          onClick={ () => history.push('/explore/drinks') }
         >
           Explore Drinks
         </button>
-      </div>
-    </Link>
-    <FooterMenu />
-  </>
-);
+
+      </StyledDiv>
+      <FooterMenu />
+    </>
+  );
+};
 
 Explore.propTypes = {
   title: propTypes.string,

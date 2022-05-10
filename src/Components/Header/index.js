@@ -10,7 +10,7 @@ const Header = ({ title, endpoint }) => {
   const [isSearching, setIsSearching] = useState(false);
 
   return (
-    <S.StyledHeader>
+    <S.StyledHeader title={ title }>
       <Link
         to="/profile"
       >
@@ -21,7 +21,7 @@ const Header = ({ title, endpoint }) => {
         />
       </Link>
 
-      <h1 data-testid="page-title">{title}</h1>
+      <h1 data-testid="page-title">{!isSearching && title}</h1>
 
       {(title === 'Foods'
       || title === 'Explore Nationalities'

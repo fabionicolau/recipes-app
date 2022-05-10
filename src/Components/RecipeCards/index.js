@@ -33,7 +33,7 @@ const RecipeCards = ({ page, isRecomendation }) => {
 
   return (
     <S.StyledDiv>
-      <div className={ isRecomendation && ('carousel') }>
+      <div className={ isRecomendation ? ('carousel') : ('contentBox') }>
         {recipes && recipes.length >= 1
         && recipes.slice(0, maxCards).map((recipe, index) => (
           <Link

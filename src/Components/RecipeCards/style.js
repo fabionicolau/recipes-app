@@ -1,12 +1,13 @@
 import styled from 'styled-components';
 
 export const StyledDiv = styled.div`
-  div {
+  .contentBox {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
   gap: 5px;
   margin-top: 10px;
+
   }
 
   .carousel {
@@ -23,18 +24,21 @@ export const StyledDiv = styled.div`
 
 export const StyledCardBox = styled.div`
   display: flex;
+  
   justify-content: center;
   text-align: center;
   flex-flow: column wrap;
   gap: 5px;
   border-radius: 10px;
   border: 2px solid #ccc;
+  
   box-shadow: 20px 20px 20px 20px inset #ccc;
   
   p {
     color: #000;
-    font-weight: 600;
+    font-size: 0.8rem;
     max-width: 150px;
+    margin: 15px 0;
   }
 
   img {

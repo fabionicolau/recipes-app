@@ -9,7 +9,6 @@ export const StyledLogin = styled.form`
   width: 100vw;
   height: 100vh;
 
-
   button {
     width: 6%;
     padding-left: 10px;
@@ -25,14 +24,14 @@ export const StyledLogin = styled.form`
     align-items: center;
     justify-content: center;
     border: 1px solid #fff;
-    /* background-color: #DAA520; */
-    background-color: #194544;
+    background-color: #6B7A00;
     margin: 10px;
     border-radius: 10px;
     cursor: pointer;
     &:hover {
-      background-color: #FF0000;
-      color: #ddd9ce;
+      background-color: #ADC50F;
+      color: #4A7308;
+      border-color: #4A7308;
     }
     :disabled {
       opacity: 0.5;
@@ -42,7 +41,7 @@ export const StyledLogin = styled.form`
 
     @media(max-width: 700px) {
       width: 30%; 
-     }
+    }
   }
 
   input {
@@ -50,8 +49,7 @@ export const StyledLogin = styled.form`
     padding-left: 10px;
     height: 50px;
     border: none;
-    /* background-color: #ff8906; */
-    background-color: #fff;
+    background-color: #C05001;
     border-radius: 10px;
     margin: 2px 10px;
     outline: none;
@@ -59,16 +57,16 @@ export const StyledLogin = styled.form`
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    color: #000;
+    color: #fff;
+    font-weight: bold;
 
     ::placeholder {
-      /* color: #ddd9ce; */
-      color: #000;
+      color: #ccc;
     }
 
     @media(max-width: 700px) {
       width: 70%; 
-     }
+    }
   }
 `;
 
@@ -99,7 +97,6 @@ export const StyledDiv = styled.div`
 
     @media(max-width: 700px) {
       width: 90%; 
-     }
+    }
   }
-
 `;

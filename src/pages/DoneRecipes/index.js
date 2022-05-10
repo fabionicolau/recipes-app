@@ -8,7 +8,6 @@ const DoneRecipes = ({ title }) => (
     <Header title="Done Recipes" />
     <h1>{title}</h1>
     <DoneRecipeInfos />
-
   </div>
 );
 DoneRecipes.propTypes = {

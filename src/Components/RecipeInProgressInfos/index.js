@@ -101,6 +101,13 @@ const RecipeInProgressInfos = ({ page }) => {
   };
 
   const handleClick = () => {
+    console.log(recipeDetails);
+    const date = new Date();
+    const day = date.getDate();
+    const month = date.getMonth() + 1;
+    const year = date.getFullYear();
+    const doneDate = `${day}/${month}/${year}`;
+    console.log(doneDate);
     history.push('/done-recipes');
   };
 

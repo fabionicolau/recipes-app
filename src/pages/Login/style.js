@@ -71,7 +71,7 @@ export const StyledLogin = styled.form`
 `;
 
 export const StyledDiv = styled.div`
-  background-image: url('http://st.gde-fon.com/wallpapers_original/645773_yabloki_frktyi_eda_stol_kniga_5616x3744_www.Gde-Fon.com.jpg');
+  background-image: url('http://st.gde-fon.com/wallpapers_original/645773_yabloki_frktyi_eda_stol_kniga_www.Gde-Fon.com.jpg');
   display: flex;
   background-repeat: no-repeat;
   background-size: cover;

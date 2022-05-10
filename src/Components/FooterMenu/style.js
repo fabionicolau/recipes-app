@@ -11,6 +11,7 @@ const StylesFooter = styled.footer`
   width: 100%;
   height: 60px;
   
+  
   button {
     height: 90%;
     border: none;

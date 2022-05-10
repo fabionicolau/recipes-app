@@ -4,16 +4,18 @@ import { func } from 'prop-types';
 import exploreIcon from '../../images/exploreIcon.svg';
 import drinkIcon from '../../images/drinkIcon.svg';
 import mealIcon from '../../images/mealIcon.svg';
+import StylesFooter from './style';
 
 const FooterMenu = () => {
   const history = useHistory();
   return (
     <div>
-      <footer data-testid="footer">
+      <StylesFooter data-testid="footer">
         <button
           type="button"
           onClick={ () => history.push('/drinks') }
           data-testid="drinks-bottom-btn"
+          title="Drinks"
           src={ drinkIcon }
         >
           <img src={ drinkIcon } alt="drinks" />
@@ -23,6 +25,7 @@ const FooterMenu = () => {
           onClick={ () => history.push('/explore') }
           data-testid="explore-bottom-btn"
           src={ exploreIcon }
+          title="Explore"
         >
           <img src={ exploreIcon } alt="explore" />
         </button>
@@ -31,10 +34,11 @@ const FooterMenu = () => {
           onClick={ () => history.push('/foods') }
           data-testid="food-bottom-btn"
           src={ mealIcon }
+          title="Food"
         >
           <img src={ mealIcon } alt="foods" />
         </button>
-      </footer>
+      </StylesFooter>
     </div>
   );
 };

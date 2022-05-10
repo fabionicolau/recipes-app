@@ -4,20 +4,11 @@ export const StyledHeader = styled.header`
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    align-items: center;
-
-    position: fixed;
-    
+    align-items: center;    
     padding: 3px;
     background-color: #F7A14D;
-    
-    
-    
     width: 100%;
     height: 60px;
-    
- 
-
 `;
 
 export const StyledBtn = styled.button`

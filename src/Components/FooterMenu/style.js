@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 const StylesFooter = styled.footer`
   display: flex;
+  position: fixed;
   padding: 3px;
   background-color: #F7A14D;
   justify-content: space-around;

@@ -4,12 +4,13 @@ import { Link } from 'react-router-dom';
 import profileIcon from '../../images/profileIcon.svg';
 import searchIcon from '../../images/searchIcon.svg';
 import Searchbar from '../Searchbar';
+import * as S from './style';
 
 const Header = ({ title, endpoint }) => {
   const [isSearching, setIsSearching] = useState(false);
 
   return (
-    <header>
+    <S.StyledHeader>
       <Link
         to="/profile"
       >
@@ -26,7 +27,7 @@ const Header = ({ title, endpoint }) => {
       || title === 'Explore Nationalities'
       || title === 'Drinks')
       && (
-        <button
+        <S.StyledBtn
           type="button"
           onClick={ () => setIsSearching(!isSearching) }
         >
@@ -35,10 +36,10 @@ const Header = ({ title, endpoint }) => {
             src={ searchIcon }
             alt="Search Icon"
           />
-        </button>
+        </S.StyledBtn>
       )}
       {isSearching && <Searchbar endpoint={ endpoint } />}
-    </header>
+    </S.StyledHeader>
   );
 };
 

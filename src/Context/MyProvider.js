@@ -15,6 +15,7 @@ const MyProvider = ({ children }) => {
   const [ingredients, setIngredients] = useState([]);
   const [isExplorerIngredients, setIsExplorerIngredients] = useState(false);
   const [favoriteRecipes, setFavoriteRecipes] = useState([]);
+  const [doneRecipes, setDoneRecipes] = useState([]);
 
   const context = {
     data,
@@ -33,6 +34,8 @@ const MyProvider = ({ children }) => {
     setIsExplorerIngredients,
     favoriteRecipes,
     setFavoriteRecipes,
+    doneRecipes,
+    setDoneRecipes,
   };
 
   return (

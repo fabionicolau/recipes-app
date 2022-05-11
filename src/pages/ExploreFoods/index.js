@@ -1,37 +1,41 @@
 import React from 'react';
 import propTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import Header from '../../Components/Header';
 import FooterMenu from '../../Components/FooterMenu';
 import SurpriseButton from '../../Components/SurpriseButton';
+import StyledDiv from '../../styleService/style';
 
-const ExploreFoods = ({ title }) => (
-  <>
-    <Header title="Explore Foods" />
-    <h1>{title}</h1>
-    <Link to="/explore/foods/ingredients">
-      <button
-        type="button"
-        data-testid="explore-by-ingredient"
-      >
-        By Ingredient
-      </button>
-    </Link>
-    <Link to="/explore/foods/nationalities">
-      <button
-        type="button"
-        data-testid="explore-by-nationality"
-      >
-        By Nationality
-      </button>
-    </Link>
-    <SurpriseButton
-      endpoint="https://www.themealdb.com/api/json/v1/1/random.php"
-      page="Foods"
-    />
-    <FooterMenu />
-  </>
-);
+const ExploreFoods = () => {
+  const history = useHistory();
+  return (
+    <>
+      <Header title="Explore Foods" />
+      <StyledDiv>
+        <button
+          type="button"
+          data-testid="explore-by-ingredient"
+          onClick={ () => history.push('/explore/foods/ingredients') }
+        >
+          By Ingredient
+        </button>
+
+        <button
+          type="button"
+          data-testid="explore-by-nationality"
+          onClick={ () => history.push('/explore/foods/nationalities') }
+        >
+          By Nationality
+        </button>
+        <SurpriseButton
+          endpoint="https://www.themealdb.com/api/json/v1/1/random.php"
+          page="Foods"
+        />
+      </StyledDiv>
+      <FooterMenu />
+    </>
+  );
+};
 ExploreFoods.propTypes = {
   title: propTypes.string,
 }.isRequired;

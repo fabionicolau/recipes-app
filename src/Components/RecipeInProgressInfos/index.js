@@ -142,7 +142,7 @@ const RecipeInProgressInfos = ({ page }) => {
           data-testid={ `${index}-ingredient-step` }
           key={ ingredient }
         >
-          <label htmlFor={ `ingredient-step-${index}` }>
+          <label htmlFor={ ingredient }>
             <input
               type="checkbox"
               id={ ingredient }

@@ -3,7 +3,7 @@ import propTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 import Header from '../../Components/Header';
 import FooterMenu from '../../Components/FooterMenu';
-import StyledDiv from './style';
+import StyledDiv from '../../styleService/style';
 
 const Explore = () => {
   const history = useHistory();

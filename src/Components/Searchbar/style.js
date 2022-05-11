@@ -4,7 +4,9 @@ import styled from 'styled-components';
 export const StyledSearchbar = styled.div`
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-around;
+  justify-content: space-evenly;
+  /* justify-content: space-around; */
+  font-size: 0.8rem;
 
   button {
     border: black solid 1px;
@@ -21,4 +23,5 @@ export const StyledSearchbar = styled.div`
 export const StyledInput = styled.div`
   display: flex;
   justify-content: center;
+  
 `;

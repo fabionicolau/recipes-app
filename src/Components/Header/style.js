@@ -17,7 +17,18 @@ export const StyledHeader = styled.header`
   padding: 3px;
   background-color: #f7a14d;
   height: 60px;
-  font-weight: 500px;
+
+  h1 {
+    font-size: ${({ title }) => {
+    if (
+      title === 'Explore Ingredients'
+      || title === 'Explore Nationalities'
+    ) {
+      return '1rem';
+    }
+    return '1.2rem';
+  }};
+  }
 `;
 
 export const StyledBtn = styled.button`

@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import frutas from '../../images/frutas.jpg';
 
 export const StyledLogin = styled.form`
   display: flex;
@@ -71,7 +72,8 @@ export const StyledLogin = styled.form`
 `;
 
 export const StyledDiv = styled.div`
-  background-image: url('http://st.gde-fon.com/wallpapers_original/645773_yabloki_frktyi_eda_stol_kniga_www.Gde-Fon.com.jpg');
+
+  background-image: url(${frutas});
   display: flex;
   background-repeat: no-repeat;
   background-size: cover;

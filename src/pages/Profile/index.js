@@ -3,7 +3,7 @@ import { func } from 'prop-types';
 import { useHistory } from 'react-router-dom';
 import FooterMenu from '../../Components/FooterMenu';
 import Header from '../../Components/Header';
-import StyledDiv from './style';
+import StyledDiv from '../../styleService/style';
 
 const Profile = () => {
   const history = useHistory();

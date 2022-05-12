@@ -49,7 +49,7 @@ export const StyledLogin = styled.form`
     width: 20%;
     padding-left: 10px;
     height: 50px;
-    border: none;
+    border: 1px solid #fff;
     background-color: #C05001;
     border-radius: 10px;
     margin: 2px 10px;

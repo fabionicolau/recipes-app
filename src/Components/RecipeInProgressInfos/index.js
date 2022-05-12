@@ -1,20 +1,27 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import propTypes from 'prop-types';
+import MyContext from '../../Context/MyContext';
 import fetchCustom from '../../services/FetchCustom';
 import BtnFavoritar from '../BtnFavoritar';
 import BtnShare from '../BtnShare';
 import {
   recipeSelector,
   recipes,
+  idRecipe,
+  recipeArea,
   recipeName,
   recipeImage,
   recipeCategory,
   recipeURL,
+  recipeAlcohol,
+  recipeType,
+  getCurrentDate,
 } from '../../utils';
 import './style.css';
 
 const RecipeInProgressInfos = ({ page }) => {
+  const { setDoneRecipes } = useContext(MyContext);
   const { id } = useParams();
   const [recipeDetails, setRecipeDetails] = useState();
   const [checkedIngredients, setCheckedIngredients] = useState({});
@@ -101,13 +108,26 @@ const RecipeInProgressInfos = ({ page }) => {
   };
 
   const handleClick = () => {
-    console.log(recipeDetails);
-    const date = new Date();
-    const day = date.getDate();
-    const month = date.getMonth() + 1;
-    const year = date.getFullYear();
-    const doneDate = `${day}/${month}/${year}`;
-    console.log(doneDate);
+    const recipeInfo = recipeDetails[recipes(page)][0];
+    const newDone = {
+      id: recipeInfo[idRecipe(page)],
+      type: recipeType(page),
+      nationality: recipeInfo[recipeArea(page)],
+      category: recipeInfo[recipeCategory(page)],
+      alcoholicOrNot: recipeInfo[recipeAlcohol(page)],
+      name: recipeInfo[recipeName(page)],
+      image: recipeInfo[recipeImage(page)],
+      doneDate: getCurrentDate(),
+      tags: recipeInfo.strTags,
+    };
+    const doneData = JSON.parse(localStorage.getItem('doneRecipes'));
+    if (doneData && doneData.every((data) => data.id !== newDone.id)) {
+      localStorage.setItem('doneRecipes', JSON.stringify([...doneData, newDone]));
+      setDoneRecipes([...doneData, newDone]);
+    } else if (!doneData) {
+      localStorage.setItem('doneRecipes', JSON.stringify([newDone]));
+      setDoneRecipes([newDone]);
+    }
     history.push('/done-recipes');
   };
 

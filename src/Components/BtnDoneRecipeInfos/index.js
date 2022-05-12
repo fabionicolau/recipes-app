@@ -1,10 +1,11 @@
 import React, { useContext } from 'react';
 import MyContext from '../../Context/MyContext';
+import StyledDiv from '../BtnRecipeInfos/style';
 
 const BtnRecipeInfos = () => {
   const { setDoneRecipes } = useContext(MyContext);
   return (
-    <div>
+    <StyledDiv>
       <button
         type="button"
         data-testid="filter-by-all-btn"
@@ -37,7 +38,7 @@ const BtnRecipeInfos = () => {
       >
         Drink
       </button>
-    </div>
+    </StyledDiv>
   );
 };
 

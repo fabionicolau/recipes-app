@@ -17,6 +17,7 @@ import DrinkDetails from '../pages/DrinkDetails';
 import FoodsInProgress from '../pages/FoodsInProgress';
 import DrinksInProgress from '../pages/DrinksInProgress';
 import NotFound from '../pages/NotFound';
+import GroupInfo from '../pages/GroupInfo';
 
 const Routes = () => (
   <Switch>
@@ -63,6 +64,11 @@ const Routes = () => (
       exact
       path="/favorite-recipes"
       component={ FavoriteRecipes }
+    />
+    <Route
+      exact
+      path="/group-info"
+      component={ GroupInfo }
     />
     <Route
       exact

@@ -4,7 +4,6 @@
 }
 
 .container2 {
-    /* background-color: bisque; */
     display: flex;
     flex-flow: column;
     justify-content: center;

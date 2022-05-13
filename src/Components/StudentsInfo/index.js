@@ -1,14 +1,15 @@
 import React from 'react';
 import StudentsCards from '../StudentsCards';
+import './styles.css';
 
 const StudentsInfo = () => (
-  <div>
+  <div className="div-container">
     <p>
       Para apresentar nosso app de receitas,
       criamos esta página com informações sobre o grupo e o desenvolvimento do projeto.
     </p>
-    <div>
-      <h4>Tecnologias utilizadas:</h4>
+    <h4 className="h4-info">Tecnologias utilizadas:</h4>
+    <div className="div-tec">
       <ul>
         <li>
           <input type="checkbox" checked />
@@ -37,7 +38,7 @@ const StudentsInfo = () => (
       </ul>
     </div>
     <div>
-      <h4>Colaboração e comunicação:</h4>
+      <h4 className="h4-info">Colaboração e comunicação:</h4>
       <p>
         Todos nós tivemos o mesmo papel, nós combinamos de nos encontrar no horário
         normal da Trybe e de tentarmos fazer tudo juntos mas mantendo a liberdade

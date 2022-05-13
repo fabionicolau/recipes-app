@@ -3,7 +3,7 @@ import styled from 'styled-components';
 const FavoriteCar = styled.div`
     display: flex;
     margin: auto;
-    margin-top: 15px;
+    margin-top: 20px;
     box-shadow: 0 1px 10px 0 #c9c9c9;
     border-radius: 10px;
     overflow: hidden;

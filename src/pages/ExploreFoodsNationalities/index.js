@@ -6,13 +6,13 @@ import RecipeCards from '../../Components/RecipeCards';
 import NationalitiesDropdown from '../../Components/NationalitiesDropdown';
 
 const ExploreFoodsNationalities = ({ title }) => (
-  <>
+  <div style={ { paddingBottom: '70px' } }>
     <Header title="Explore Nationalities" />
     <h1>{title}</h1>
     <NationalitiesDropdown />
     <RecipeCards page="Foods" />
     <FooterMenu />
-  </>
+  </div>
 );
 
 ExploreFoodsNationalities.propTypes = {

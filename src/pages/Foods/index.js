@@ -22,7 +22,7 @@ const Foods = () => {
   }, [setData, setCategoriesData, isExplorerIngredients]);
 
   return (
-    <div>
+    <div style={ { paddingBottom: '70px' } }>
       <Header title="Foods" endpoint={ endpointRoot } />
       <Categories endpoint={ endpointRoot } />
       <RecipeCards page="Foods" />

@@ -22,12 +22,12 @@ const Drinks = () => {
   }, [setData, setCategoriesData, isExplorerIngredients]);
 
   return (
-    <>
+    <div style={ { paddingBottom: '70px' } }>
       <Header title="Drinks" endpoint={ endpointRoot } />
       <Categories endpoint={ endpointRoot } />
       <RecipeCards page="Drinks" />
       <FooterMenu />
-    </>
+    </div>
   );
 };
 

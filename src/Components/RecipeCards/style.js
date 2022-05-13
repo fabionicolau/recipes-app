@@ -24,7 +24,7 @@ export const StyledDiv = styled.div`
 
 export const StyledCardBox = styled.div`
   display: flex;
-  
+  overflow: hidden;
   justify-content: center;
   text-align: center;
   flex-flow: column wrap;

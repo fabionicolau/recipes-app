@@ -34,7 +34,7 @@ export const StyledHeader = styled.header`
 export const StyledBtn = styled.button`
   height: 90%;
   border: none;
-  margin: 0 10px;
+  /* margin: 0 10px; */
   border-radius: 15%;
   background-color: #f7a14d;
   cursor: pointer;

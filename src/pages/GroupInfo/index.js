@@ -5,9 +5,9 @@ import leftArrow from '../../images/leftArrow.svg';
 
 const GroupInfo = () => (
   <div className="dev-about">
-    <header style={ { backgroundColor: '#fff' } }>
+    <header style={ { backgroundColor: '#f7a14d' } }>
       {/* <h2>Sobre</h2> */}
-      <h3 style={ { textAlign: 'center', marginTop: '10px' } }>
+      <h3 style={ { textAlign: 'center', padding: '10px' } }>
         &#169;
         {' Group = 2 + "2"'}
       </h3>
@@ -15,7 +15,12 @@ const GroupInfo = () => (
     <main>
       <StudentsInfo />
     </main>
-    <footer>
+    <footer
+      style={ { backgroundColor: '#f7a14d',
+        display: 'flex',
+        justifyContent: 'flex-end',
+        paddingRight: '10px' } }
+    >
       <Link to="/">
         <img alt="return arrow" src={ leftArrow } width="50px" />
       </Link>

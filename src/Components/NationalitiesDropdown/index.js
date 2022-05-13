@@ -20,21 +20,24 @@ const NationalitiesDropdown = () => {
   }, [optionValue, setData]);
 
   return (
-    <select
-      data-testid="explore-by-nationality-dropdown"
-      onChange={ ((event) => setOptionValue(event.target.value)) }
-    >
-      <option data-testid="All-option"> All</option>
-      {nationalities.map((nationality, index) => (
-        <option
-          data-testid={ `${nationality.strArea}-option` }
-          key={ index }
-          value={ nationality.strArea }
-        >
-          {nationality.strArea}
-        </option>
-      ))}
-    </select>
+    <div style={ { display: 'flex', justifyContent: 'center', marginTop: '10px' } }>
+      <select
+        data-testid="explore-by-nationality-dropdown"
+        onChange={ ((event) => setOptionValue(event.target.value)) }
+        style={ { width: '70%', textAlign: 'center' } }
+      >
+        <option data-testid="All-option"> All</option>
+        {nationalities.map((nationality, index) => (
+          <option
+            data-testid={ `${nationality.strArea}-option` }
+            key={ index }
+            value={ nationality.strArea }
+          >
+            {nationality.strArea}
+          </option>
+        ))}
+      </select>
+    </div>
   );
 };
 

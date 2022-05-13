@@ -21,12 +21,12 @@
   margin-top: 10px;
 }
 
-p {
+.div-container p {
   padding: 6px;
   text-align: justify;
 }
 
-h4 {
+.div-container h4 {
   font-size: 1.07em;
   text-align: left;
 }
@@ -35,7 +35,7 @@ h4 {
   padding: 6px;
 }
 
-h3 {
+.div-container h3 {
   font-size: 1.08em;
   margin-bottom: 10px;
   padding: 6px;

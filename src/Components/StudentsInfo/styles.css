@@ -1,0 +1,43 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.div-container {
+    display: flex;
+    flex-flow: column;
+    margin-top: 10px;
+    background-color: bisque;
+}
+
+.div-container li {
+    display: flex;
+    flex-flow: row;
+    align-items: center;
+    padding: 6px;
+}
+
+.div-tec {    
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+p {
+    padding: 6px;
+    text-align: justify;
+}
+
+h4 {
+    font-size: 1.07em;
+    text-align: left;
+}
+
+.h4-info {
+    padding: 6px;
+}
+
+h3 {
+    font-size: 1.08em;
+    padding: 6px;
+    margin-bottom: 10px;
+}

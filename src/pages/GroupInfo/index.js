@@ -4,10 +4,10 @@ import StudentsInfo from '../../Components/StudentsInfo';
 import leftArrow from '../../images/leftArrow.svg';
 
 const GroupInfo = () => (
-  <div>
-    <header>
-      <h2>About us</h2>
-      <h3>
+  <div className="dev-about">
+    <header style={ { backgroundColor: '#fff' } }>
+      {/* <h2>Sobre</h2> */}
+      <h3 style={ { textAlign: 'center', marginTop: '10px' } }>
         &#169;
         {' Group = 2 + "2"'}
       </h3>
@@ -17,7 +17,7 @@ const GroupInfo = () => (
     </main>
     <footer>
       <Link to="/">
-        <img alt="return arrow" src={ leftArrow } width="100px" />
+        <img alt="return arrow" src={ leftArrow } width="50px" />
       </Link>
     </footer>
   </div>

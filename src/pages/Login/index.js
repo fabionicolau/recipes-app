@@ -72,7 +72,10 @@ const Login = () => {
             Enter
 
           </button>
-          <Link to="/group-info">
+          <Link
+            to="/group-info"
+            style={ { color: '#c9c9c9', textDecoration: 'none', marginTop: '20px' } }
+          >
             &#169;
             {' Group = 2 + "2"'}
           </Link>

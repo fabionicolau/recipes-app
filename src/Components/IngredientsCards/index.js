@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import propTypes from 'prop-types';
 import MyContext from '../../Context/MyContext';
 import fetchCustom from '../../services/FetchCustom';
+import * as S from './style';
 
 const IngredientsCards = ({ endpoint, page }) => {
   const {
@@ -31,8 +32,9 @@ const IngredientsCards = ({ endpoint, page }) => {
   }, [setIngredients, endpoint, recipeType]);
 
   return (
-    <div>
-      {ingredients && ingredients.length >= 1
+    <S.StyledDiv>
+      <div className="contentBox">
+        {ingredients && ingredients.length >= 1
         && ingredients.map((recipe, index) => (
           <Link
             key={ index }
@@ -43,17 +45,18 @@ const IngredientsCards = ({ endpoint, page }) => {
             } }
             to={ `/${pageStr}` }
           >
-            <div data-testid={ `${index}-ingredient-card` }>
+            <S.StyledCardBox data-testid={ `${index}-ingredient-card` }>
               <img
                 data-testid={ `${index}-card-img` }
                 src={ `${imgUrl}${recipe[ingredientsType]}-Small.png` }
                 alt={ recipe[ingredientsType] }
               />
               <p data-testid={ `${index}-card-name` }>{recipe[ingredientsType]}</p>
-            </div>
+            </S.StyledCardBox>
           </Link>
         ))}
-    </div>
+      </div>
+    </S.StyledDiv>
   );
 };
 

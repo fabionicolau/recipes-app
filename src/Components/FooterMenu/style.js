@@ -19,6 +19,7 @@ const StylesFooter = styled.footer`
     border-radius: 15%;
     background-color: #ffb86c;
     border: 1px solid #fff;
+    padding: 5px;
     cursor: pointer;
   }
 `;

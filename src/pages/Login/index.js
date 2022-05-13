@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import propTypes from 'prop-types';
-import { useHistory } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import MyContext from '../../Context/MyContext';
 import * as S from './style';
 
@@ -72,6 +72,10 @@ const Login = () => {
             Enter
 
           </button>
+          <Link to="/group-info">
+            &#169;
+            {' Group = 2 + "2"'}
+          </Link>
         </S.StyledLogin>
       </div>
     </S.StyledDiv>

@@ -9,6 +9,7 @@ import {
   testIdDefiner,
   innerHTMLDefiner,
   recipeSelector,
+  verifyDone,
 } from '../../utils';
 
 const SwitchButtons = ({ recipeId, ingredients, page }) => {
@@ -17,6 +18,7 @@ const SwitchButtons = ({ recipeId, ingredients, page }) => {
     class: '',
     testId: '',
     innerHTML: '',
+    isDone: false,
   });
 
   // didMount
@@ -25,10 +27,12 @@ const SwitchButtons = ({ recipeId, ingredients, page }) => {
       const classDefinerResult = classDefiner(page, recipeId);
       const testIdDefinerResult = testIdDefiner(page, recipeId);
       const innerHTMLDefinerResult = innerHTMLDefiner(page, recipeId);
+      const verifyHaveDone = verifyDone(recipeId);
       setButtonInfo({
         class: classDefinerResult,
         testId: testIdDefinerResult,
         innerHTML: innerHTMLDefinerResult,
+        isDone: verifyHaveDone,
       });
     };
     defineButtonInfo();
@@ -61,14 +65,18 @@ const SwitchButtons = ({ recipeId, ingredients, page }) => {
   };
 
   return (
-    <button
-      className={ buttonInfo.class }
-      data-testid={ buttonInfo.testId }
-      type="button"
-      onClick={ handleClick }
-    >
-      { buttonInfo.innerHTML }
-    </button>
+    <div>
+      { !buttonInfo.isDone && (
+        <button
+          className={ buttonInfo.class }
+          data-testid={ buttonInfo.testId }
+          type="button"
+          onClick={ handleClick }
+        >
+          { buttonInfo.innerHTML }
+        </button>
+      )}
+    </div>
   );
 };
 

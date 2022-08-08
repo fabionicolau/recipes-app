@@ -13,9 +13,9 @@ export const recipeSelector = (page) => (page === 'Foods' ? 'meals' : 'cocktails
 export const recipeAlcohol = (page) => (page === 'Foods' ? '' : 'strAlcoholic');
 export const recipeType = (page) => (page === 'Foods' ? 'food' : 'drink');
 
-const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
-const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
-const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
+const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes')) || [];
+const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes')) || [];
+const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
 
 export const getCurrentDate = () => {
   const date = new Date();
@@ -34,12 +34,12 @@ export const DataIdRecomendation = (isRecomendation) => (
 );
 
 export const verifyInProgress = (page, recipeId) => {
+  inProgressRecipes[recipeSelector(page)] = inProgressRecipes[recipeSelector(page)] || [];
   const recipesGotten = inProgressRecipes
     ? Object.keys(inProgressRecipes[recipeSelector(page)]) : [];
   return recipesGotten?.some((key) => key === recipeId);
 };
-
-const verifyDone = (recipeId) => {
+export const verifyDone = (recipeId) => {
   const recipesGotten = doneRecipes;
   return recipesGotten?.some((item) => item.id === recipeId);
 };
@@ -79,17 +79,3 @@ export const innerHTMLDefiner = (page, recipeId) => {
   }
   return 'Start Recipe';
 };
-
-// export const disabledDefiner = (inProgress, page, recipeId) => {
-//   const recipesGotten = inProgressRecipes
-//     ? inProgressRecipes[recipeSelector(page)][recipeId]?.ingredientsWithBoxes : [];
-//   if (inProgress && recipesGotten) {
-//     if (Object
-//       .values(recipesGotten)
-//       .every((data) => data === true)) {
-//       return false;
-//     }
-//     return true;
-//   }
-//   return false;
-// };
